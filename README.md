@@ -38,63 +38,19 @@ A comprehensive Model Context Protocol (MCP) server that enables AI assistants l
 
 ## 📦 Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/phantosmax/cloud-director-mcp.git
-   cd cloud-director-mcp
-   ```
+Add the server with `npx` — no clone or local build required.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment**
-   ```bash
-   cp .env.example .env
-   ```
-
-4. **Set your VMware Cloud Director credentials in `.env`**
-   ```env
-   VCD_BASE_URL=https://your-vcd-instance.com
-   VCD_USERNAME=your-username
-   VCD_PASSWORD=your-password
-   VCD_ORG=your-organization
-   VCD_API_VERSION=39.1
-   ```
-
-5. **Build the server**
-   ```bash
-   npm run build
-   ```
-
-## 🔧 Usage
-
-### Running the Server
-
-**Development mode:**
-```bash
-npm run dev
-```
-
-**Production mode:**
-```bash
-npm start
-```
-
-### Claude Desktop Integration
-
-Add to your Claude Desktop configuration:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
-**Windows**: `%APPDATA%/Claude/claude_desktop_config.json`
+**Cursor**: Settings → MCP → add a new server, or put this in `~/.cursor/mcp.json` / `.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
-    "vmware-cloud-director": {
-      "command": "node",
-      "args": ["/path/to/cloud-director-mcp/build/index.js"],
+    "cloud-director": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "git+https://github.com/elix-project/cloud-director-mcp.git"
+      ],
       "env": {
         "VCD_BASE_URL": "https://your-vcd-instance.com",
         "VCD_USERNAME": "your-username",
@@ -106,6 +62,33 @@ Add to your Claude Desktop configuration:
   }
 }
 ```
+
+**Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, `%APPDATA%/Claude/claude_desktop_config.json` on Windows) uses the same `mcpServers` block.
+
+`npx` clones the repo, installs runtime dependencies, and runs the `cloud-director-mcp` binary. Credentials come from `env` — do not commit them.
+
+### Local development
+
+```bash
+git clone https://github.com/elix-project/cloud-director-mcp.git
+cd cloud-director-mcp
+npm install
+cp .env.example .env
+npm run build
+```
+
+Set VMware Cloud Director credentials in `.env`:
+
+```env
+VCD_BASE_URL=https://your-vcd-instance.com
+VCD_USERNAME=your-username
+VCD_PASSWORD=your-password
+VCD_ORG=your-organization
+VCD_API_VERSION=39.1
+```
+
+**Development:** `npm run dev`  
+**Production:** `npm start`
 
 ## 🛠️ Available Tools (32 Total)
 
