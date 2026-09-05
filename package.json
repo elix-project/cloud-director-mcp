@@ -1,23 +1,33 @@
 {
-  "name": "vmware-cloud-director-mcp-server",
-  "version": "0.1.0",
+  "name": "cloud-director-mcp",
+  "version": "0.1.1",
   "description": "MCP server for VMware Cloud Director API integration",
   "main": "build/index.js",
   "type": "module",
+  "bin": {
+    "cloud-director-mcp": "build/index.js"
+  },
+  "files": [
+    "build"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', 0o755)\"",
     "dev": "tsx src/index.ts",
     "start": "node build/index.js",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "vmware",
     "cloud-director",
-    "api"
+    "vcd"
   ],
-  "author": "Your Name",
+  "author": "elix-project",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
     "axios": "^1.6.0",
@@ -30,15 +40,12 @@
     "tsx": "^4.0.0",
     "typescript": "^5.8.3"
   },
-  "bin": {
-    "vmware-cloud-director-mcp-server": "build/index.js"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phantosmax/cloud-director-mcp.git"
+    "url": "git+https://github.com/elix-project/cloud-director-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/phantosmax/cloud-director-mcp/issues"
+    "url": "https://github.com/elix-project/cloud-director-mcp/issues"
   },
-  "homepage": "https://github.com/phantosmax/cloud-director-mcp#readme"
+  "homepage": "https://github.com/elix-project/cloud-director-mcp#readme"
 }
